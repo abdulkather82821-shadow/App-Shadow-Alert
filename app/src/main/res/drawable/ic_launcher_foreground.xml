@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Minimalist Shield -->
+    <path
+        android:fillColor="#22D3EE"
+        android:pathData="M54,22 L78,31.5 C78,52.5 68.5,71.5 54,84 C39.5,71.5 30,52.5 30,31.5 Z" />
+    <!-- Inner Shield Cutout (Deep Navy) -->
+    <path
+        android:fillColor="#0A192F"
+        android:pathData="M54,28 L72,35.5 C72,52.5 64.5,67.5 54,77.5 C43.5,67.5 36,52.5 36,35.5 Z" />
+    <!-- Clock Ring -->
+    <path
+        android:pathData="M54,39 A13,13 0 1,0 54,65 A13,13 0 1,0 54,39 Z"
+        android:strokeWidth="3.2"
+        android:strokeColor="#FFFFFF" />
+    <!-- Clock Hands -->
+    <path
+        android:pathData="M54,44.5 L54,52 L59.5,55.5"
+        android:strokeWidth="3.2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeColor="#22D3EE" />
+    <!-- Alert Dot -->
+    <path
+        android:fillColor="#22D3EE"
+        android:pathData="M54,34.5 A2.2,2.2 0 1,0 54,38.9 A2.2,2.2 0 1,0 54,34.5 Z" />
+</vector>
