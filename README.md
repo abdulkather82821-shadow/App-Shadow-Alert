@@ -44,10 +44,21 @@ Shadow Alert is a native Android digital well-being application built in **Kotli
 
 ---
 
+## Direct APK Download (Android 8.0+)
+
+Download the latest directly installable APK from GitHub Releases:
+
+- **Direct APK Link:** [Shadow-Alert.apk](https://github.com/abdulkather82821-shadow/App-Shadow-Alert/releases/latest/download/Shadow-Alert.apk)
+- **Releases Page:** [GitHub Releases](https://github.com/abdulkather82821-shadow/App-Shadow-Alert/releases)
+
+*(On your Android phone, open the link above, allow **Install unknown apps** for your browser if prompted, and install `Shadow-Alert.apk`.)*
+
+---
+
 ## Setup & APK Build Instructions
 
 1. Install **Android Studio Ladybug (2024.2)** or newer with **JDK 17** and **Android SDK Platform 35**.
-2. Open the repository root folder (`/App-Shadow-Alert`) in Android Studio and let Gradle sync (`AGP 8.7.3`, `Kotlin 2.0.21`, `Gradle 8.9`).
+2. Open the repository root folder (`/App-Shadow-Alert`) in Android Studio and let Gradle sync (`AGP 8.7.3`, `Kotlin 2.0.21`, `Gradle 8.14.8`).
 3. Run unit tests, Lint, and build the debug APK:
    ```bash
    gradle testDebugUnitTest lintDebug assembleDebug
