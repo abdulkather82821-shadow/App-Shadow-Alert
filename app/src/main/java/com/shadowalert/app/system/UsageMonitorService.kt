@@ -583,13 +583,24 @@ class UsageMonitorService : LifecycleService() {
     }
 
     private fun updateForegroundNotification(title: String, content: String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.POST_NOTIFICATIONS
+            ) != android.content.pm.PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
         val notification = NotificationHelper.buildMonitoringNotification(
             context = this,
             title = title,
             content = content
         )
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        manager.notify(NotificationHelper.NOTIFICATION_ID_FOREGROUND, notification)
+        try {
+            manager.notify(NotificationHelper.NOTIFICATION_ID_FOREGROUND, notification)
+        } catch (_: SecurityException) {
+        }
     }
 
     private fun stopMonitoringGracefully() {

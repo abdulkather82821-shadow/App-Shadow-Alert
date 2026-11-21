@@ -1,13 +1,17 @@
 package com.shadowalert.app.system
 
+import android.Manifest
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import com.shadowalert.app.MainActivity
 import com.shadowalert.app.R
 import com.shadowalert.app.domain.logic.AnalyticsCalculator
@@ -159,10 +163,7 @@ object NotificationHelper {
             NOTIFICATION_ID_WARNING
         }
 
-        try {
-            NotificationManagerCompat.from(context).notify(id, notification)
-        } catch (_: SecurityException) {
-        }
+        notifySafely(context, id, notification)
     }
 
     fun showPauseInterventionNotification(
@@ -233,10 +234,7 @@ object NotificationHelper {
             NOTIFICATION_ID_LIMIT_REACHED
         }
 
-        try {
-            NotificationManagerCompat.from(context).notify(notifId, builder.build())
-        } catch (_: SecurityException) {
-        }
+        notifySafely(context, notifId, builder.build())
     }
 
     fun showPermissionRevokedNotification(context: Context) {
@@ -258,8 +256,21 @@ object NotificationHelper {
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .build()
 
+        notifySafely(context, NOTIFICATION_ID_PERMISSION, notification)
+    }
+
+    private fun notifySafely(context: Context, id: Int, notification: Notification) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+        if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) return
         try {
-            NotificationManagerCompat.from(context).notify(NOTIFICATION_ID_PERMISSION, notification)
+            NotificationManagerCompat.from(context).notify(id, notification)
         } catch (_: SecurityException) {
         }
     }
