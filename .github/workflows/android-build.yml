@@ -7,6 +7,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,10 +24,10 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Set up Gradle 8.9
+      - name: Set up Gradle 8.11.1
         uses: gradle/actions/setup-gradle@v6
         with:
-          gradle-version: "8.9"
+          gradle-version: "8.11.1"
 
       - name: Run unit tests
         run: gradle testDebugUnitTest --no-daemon
@@ -32,11 +35,16 @@ jobs:
       - name: Run Android Lint
         run: gradle lintDebug --no-daemon
 
-      - name: Print Lint Report on Failure
+      - name: Report Lint Failure Details
         if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           if [ -f app/build/reports/lint-results-debug.txt ]; then
             cat app/build/reports/lint-results-debug.txt
+            BODY=$(head -c 60000 app/build/reports/lint-results-debug.txt)
+            jq -n --arg body "$BODY" '{body: ("```text\n" + $body + "\n```")}' > /tmp/lint_comment.json
+            gh api "repos/${{ github.repository }}/commits/${{ github.sha }}/comments" --input /tmp/lint_comment.json
           fi
 
       - name: Build Debug APK
