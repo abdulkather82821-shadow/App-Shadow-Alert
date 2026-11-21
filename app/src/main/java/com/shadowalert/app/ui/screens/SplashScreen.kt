@@ -22,9 +22,11 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.shadowalert.app.R
 import com.shadowalert.app.ui.components.ShadowAlertLogo
 import com.shadowalert.app.ui.theme.CyanBright
 import com.shadowalert.app.ui.theme.NavyDeep
@@ -83,7 +85,7 @@ fun SplashScreen(
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "Driven by Intent. Shaped by Excellence.",
+                text = stringResource(R.string.app_tagline),
                 style = MaterialTheme.typography.titleMedium,
                 color = CyanBright,
                 textAlign = TextAlign.Center,
@@ -91,7 +93,7 @@ fun SplashScreen(
             )
             Spacer(modifier = Modifier.height(28.dp))
             Text(
-                text = "Plan before use. Stay aware during use. Take control after use.",
+                text = stringResource(R.string.central_principle),
                 style = MaterialTheme.typography.bodyMedium,
                 color = Color.White.copy(alpha = 0.80f),
                 textAlign = TextAlign.Center

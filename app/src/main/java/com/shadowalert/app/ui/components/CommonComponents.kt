@@ -34,8 +34,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.produceState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -65,8 +68,9 @@ fun AppIconImage(
     size: Dp = 44.dp
 ) {
     val context = LocalContext.current
-    val bitmap by produceState<ImageBitmap?>(initialValue = null, key1 = packageName) {
-        value = withContext(Dispatchers.IO) {
+    var bitmap by remember(packageName) { mutableStateOf<ImageBitmap?>(null) }
+    LaunchedEffect(packageName) {
+        bitmap = withContext(Dispatchers.IO) {
             val app = context.applicationContext as? ShadowAlertApplication
             val drawable = app?.container?.installedAppsRepository?.getAppIcon(packageName)
             drawable?.toBitmapSafe(96)?.asImageBitmap()

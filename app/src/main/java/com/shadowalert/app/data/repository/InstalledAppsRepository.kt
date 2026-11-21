@@ -97,6 +97,10 @@ class InstalledAppsRepository(private val context: Context) {
                 ApplicationInfo.CATEGORY_IMAGE -> return AppCategory.ENTERTAINMENT
                 ApplicationInfo.CATEGORY_NEWS -> return AppCategory.NEWS
                 ApplicationInfo.CATEGORY_PRODUCTIVITY -> return AppCategory.FOCUS
+                ApplicationInfo.CATEGORY_ACCESSIBILITY,
+                ApplicationInfo.CATEGORY_MAPS,
+                ApplicationInfo.CATEGORY_UNDEFINED -> Unit
+                else -> Unit
             }
         }
 
